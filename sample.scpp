@@ -1,0 +1,24 @@
+--title:Sample presentation in scpp
+--subtitle:Or how did I learn to stop worrying and learn to love text presentations...
+--author:Jose Cuevas
+--date:April 24, 2021
+--newpage
+# So why use scpp?
+--
+- Because it is *easy to use* and it is **minimalist** (less than ~300 LOC).
+--
+- Because it has vim keybindings (use h/l to move through slides, g for start and G for finish).
+--
+- Because it interpretates plain markdown (it reads \* and \_ for italics and boldface), and you can write presentations in a couple of minutes that fix into your screen.
+--
+*(Really, try it out!)*
+--newpage
+# Other features
+## You can center text
+--center: This is centered text.
+--
+--icenter: This is centered italic text.
+--
+--bcenter: This is centered bold text.
+--newpage
+--center: tHAnKs FOR YoUr AttENtIOn uwu

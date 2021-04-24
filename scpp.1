@@ -1,0 +1,85 @@
+.TH SCPP 1
+.SH NAME
+scpp \- Simple C powerpoint
+.SH SYNOPSIS
+.R scpp
+.RB [ \-fvh ]
+.RB [ \-s
+.IR SLIDE ]
+.I FILE
+.SH DESCRIPTION
+.B scpp
+is a simple text presentation program written in C, that uses a markdown-like syntax
+.PP
+.SH OPTIONS
+.TP
+.BI \-s " slide"
+opens presentation at the indicated slide. If the number is higher than the total amount,
+then it begans at the last one;
+if the number is negative, then it begans at the slide from backwards, for instance
+.IB \-s \-1
+opens the presentation at the last slide. If the negative one is too low, it starts at the first.
+.TP
+.BI \-f
+opens presentation at the last slide, synonim for \-s \-1
+.TP
+.B \-v
+prints version information to stdout, then exits.
+.TP
+.B \-h
+prints simple help information to stderr, then exits.
+.SH USAGE
+The program uses only the keyboard and has vim-like commands.
+.TP
+.BR h " | " backspace
+Go to previous slide
+.TP
+.BR l " | " space " | " enter
+Go to next slide
+.TP
+.BR g
+Go to first slide
+.TP
+.BR G
+Go to last slide
+.SH WRITTING A PRESENTATION
+On the first slide is recommended to use:
+.TP
+.BR \-\-title: " ..."
+To set the title, this is printed centered bold and is used in the statusbar.
+If no title is set, it uses the filename
+.TP
+.BR \-\-subtitle: " ..."
+This is printed centered in italics.
+.TP
+.BR \-\-author: " ..."
+.TP
+.BR \-\-date: " ..."
+This ones are just printed centered.
+.P
+This ones are general:
+.TP
+.BR \-\-bcenter: " ..."
+Prints bold centered text
+.TP
+.BR \-\-icenter: " ..."
+Prints italic centered text
+.TP
+.BR \-\-center: " ..."
+Prints normal centered text
+.P
+It also reads markdown typsetting:
+.P
+.nf
+.
+# Slide title
+## Slide subtitle
+Normal text, but *this one is in italics* and __this one in boldface__.
+You can scape characters with \\, as \* and \_.
+.
+.fi
+.P
+It is important to know that the slide title and subtitle must use the first two lines of a slide.
+.P
+Finally you can split a slide into multiple parts with just \'\-\-\'
+or create a new one with \'\-\-newpage\'
