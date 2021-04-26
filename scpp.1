@@ -17,7 +17,7 @@ is a simple text presentation program written in C, that uses a markdown-like sy
 opens presentation at the indicated slide. If the number is higher than the total amount,
 then it begans at the last one;
 if the number is negative, then it begans at the slide from backwards, for instance
-.IB \-s \-1
+.BR \-s " \-1"
 opens the presentation at the last slide. If the negative one is too low, it starts at the first.
 .TP
 .BI \-f
@@ -42,6 +42,23 @@ Go to first slide
 .TP
 .BR G
 Go to last slide
+.TP
+.BR q " | " Q
+Quits the program
+.P
+It also reads the command:
+.TP
+.IB "num " KEY
+Has the same effect as pressing
+.B KEY
+.I num
+times. With
+.B g
+or
+.B G
+it goes to the
+.I num
+slide.
 .SH WRITTING A PRESENTATION
 On the first slide is recommended to use:
 .TP

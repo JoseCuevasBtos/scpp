@@ -5,7 +5,7 @@
 --newpage
 # So why use scpp?
 --
-- Because it is *easy to use* and it is **minimalist** (less than ~300 LOC).
+- Because it is *easy to use* and it is **minimalist** (less than ~350 LOC).
 --
 - Because it has vim keybindings (use h/l to move through slides, g for start and G for finish).
 --

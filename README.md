@@ -7,13 +7,13 @@ The program is very minimal (~350 SLOC) and is still on very early development.
 ## Installation
 Just write on your terminal
 
-	$ git clone https://github.com/JoseCuevasBtos/scpp.git
-	$ cd scpp
-	$ sudo make install
+	git clone https://github.com/JoseCuevasBtos/scpp.git
+	cd scpp
+	sudo make install
 
 and *voila*! To uninstall do
 
-	$ sudo make uninstall
+	sudo make uninstall
 
 ## Usage
 Just type
@@ -28,7 +28,9 @@ The keys are also quite simple
 	h, backspace .......... go previous slide
 	g ..................... go first slide
 	G ..................... go last slide
-	q ..................... quit
+	q, Q .................. quit
+
+It also reads numbers like vim, so `2h` has the same effect as pressing `h` twice, and `2g` or `2G` goes to the second slide.
 
 ![Usage demostration](demo.gif)
 
@@ -61,4 +63,5 @@ You can break one slide into multiple parts by using
 
 ## Todo
 
-- [ ] Add utf8 support.
+- [x] Add utf8 support.
+- [ ] Command H and L to skip splitted slides.

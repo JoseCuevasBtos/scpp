@@ -3,6 +3,7 @@
 #include <string.h> 
 #include <ctype.h> 
 #include <ncurses.h>
+#include <locale.h>
 
 #include "utils.h"
 
@@ -98,7 +99,7 @@ int main(int argc, char *argv[]) {
 		usage();
 	for (int i = 1; i < argc; ++i) {
 		if (!strcmp(argv[i], "-v")) {
-			printf("scpp 1.0\n");
+			printf("scpp 1.1\n");
 			return 0;
 		} else if (!strcmp(argv[i], "-h"))
 			usage();
@@ -115,20 +116,58 @@ int main(int argc, char *argv[]) {
 	slide = (slide < 0) ? 0 : slide;
 	slide = (slide > total) ? total : slide;
 
+	setlocale(LC_ALL, ""); // allow utf8 characters
 	initscr();
 	cbreak();
-	curs_set(0);
+	curs_set(0); // hide cursor
 	refresh();
 	draw(pages[slide], slide, total, title);
 
-	noecho();
-	keypad(stdscr, TRUE);
-	int key;
-	while ( (key = getch()) != 'q' ) {
+	noecho(); // don't display pressed characters
+	keypad(stdscr, TRUE); // include extra keys (in particular, left, right and backspace)
+	int key, num = 0;
+	while ( (key = getch()) != 'q' && key != 'Q' ) {
+
+		/* number based commands */
+		if (isdigit(key)) {
+			do
+				num = 10*num + (key - '0');
+			while ( isdigit(key = getch()) );
+			switch (key) {
+				case 'g':
+				case 'G':
+					slide = (num-1 > total) ? total : num-1;
+					draw(pages[slide], slide, total, title);
+					break;
+
+				case 'h':
+				case 'p':
+				case KEY_LEFT:
+				case KEY_BACKSPACE:
+					slide -= num;
+					slide = (slide < 0) ? 0 : slide;
+					draw(pages[slide], slide, total, title);
+					break;
+
+				case 'l':
+				case 'n':
+				case KEY_RIGHT:
+				case ' ':
+				case '\n':
+					slide += num;
+					slide = (slide > total) ? total : slide;
+					draw(pages[slide], slide, total, title);
+					break;
+			}
+			num = 0;
+			continue;
+		}
+
 		switch (key) {
 			case 'h':
 			case 'p':
 			case KEY_LEFT:
+			case KEY_BACKSPACE:
 				if (slide) {
 					slide--;
 					draw(pages[slide], slide, total, title);
@@ -150,7 +189,6 @@ int main(int argc, char *argv[]) {
 				slide = 0;
 				draw(pages[slide], slide, total, title);
 				break;
-
 			case 'G':
 				slide = total;
 				draw(pages[slide], slide, total, title);
@@ -181,8 +219,9 @@ void format(WINDOW *win, int height, int width, char* text, int lc) {
 	int i = 0;
 	/* title format */
 	int attr, inc;
+	bool it = false, bf = false;
 	/* check for slide title/subtitle */
-	for (int j = 0; j < 2; ++j)
+	for (int j = 0; j < 2; ++j) {
 		if (text[i] == '#') {
 			if (text[++i] == '#')
 				attr = A_ITALIC, i++;
@@ -195,28 +234,28 @@ void format(WINDOW *win, int height, int width, char* text, int lc) {
 			while (text[++i] != '\n');
 			wattroff(win, attr);
 			waddch(win, text[i++]);
-		}
+			lc--;
+		} else
+			break;
+	}
 
 	wmove(win, (height - lc)/2, 0);
 	for (; i < strlen(text); ++i) {
 		if ((c = text[i]) == '*' || c == '_') {
-			if (!isalpha(text[i-1])) {
-				if (text[++i] == c) {
-					wattron(win, A_BOLD);
-				} else {
-					wattron(win, A_ITALIC);
-					i--;
-				}
-				continue;
-			} else if (!isalpha(text[++i])) {
-				if (text[i] == c) {
+			if (text[++i] == c) {
+				if (bf)
 					wattroff(win, A_BOLD);
-				} else {
+				else
+					wattron(win, A_BOLD);
+				bf = !bf;
+			} else {
+				if (it)
 					wattroff(win, A_ITALIC);
-					i--;
-				}
-				continue;
+				else
+					wattron(win, A_ITALIC);
+				it = !it, i--;
 			}
+			continue;
 		}
 		if (i == 0 || text[i-1] == '\n') {
 			inc = formatcenter(win, i, text, width);
@@ -225,6 +264,9 @@ void format(WINDOW *win, int height, int width, char* text, int lc) {
 				continue;
 		}
 
-		waddch(win, (c == '\\') ? text[++i] : c);
+		/* We use wprintw instead of waddch because of utf8 displaying errors */
+		/* waddch(win, (c == '\\') ? text[++i] : c); */
+		wprintw(win, "%c", (c == '\\') ? text[++i] : c);
 	}
+	wattrset(win, A_NORMAL);
 }
