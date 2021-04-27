@@ -18,7 +18,7 @@ and *voila*! To uninstall do
 ## Usage
 Just type
 
-	$ scpp filename
+	scpp filename
 
 You can also use the options `-s 3` to open at the third slide, `-s -2` to open at the second last slide and `-f` to open at the final slide.
 
@@ -52,7 +52,7 @@ To make a new slide do `--newpage`, the normal slides use markdown and other opt
 	--icenter: Centered italics
 	--center: Centered text
 
-You can break one slide into multiple parts by using
+You can break one slide into multiple parts by using `--`:
 
 	# Slide title
 	Hey
@@ -61,7 +61,8 @@ You can break one slide into multiple parts by using
 	--
 	try it!
 
-## Todo
+## To-do
 
 - [x] Add utf8 support.
+- [ ] Formatting options for title information (such as `title - author`).
 - [ ] Command H and L to skip splitted slides.
