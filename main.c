@@ -32,7 +32,8 @@ int readfile(char arr[MAXSLD][MAXLEN], char *title, int slidegrp[], const char f
 			} else if (!strcmp(line, "--newpage"))
 				k = ++i, slidegrp[i] = k;
 			else {
-				line[j] = c;
+				line[j++] = c;
+				line[j] = '\0';
 				gettitle(line, title);
 				strcat(arr[i], line);
 			}
