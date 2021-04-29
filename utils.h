@@ -9,7 +9,7 @@
 #endif
 
 static void usage(void) {
-	fputs("usage: scpp [-hv] [-s SLIDE] FILE\n", stderr);
+	fputs("usage: scpp [-hv] [-f] [-s SLIDE] FILE\n", stderr);
 	exit(1);
 }
 
@@ -32,7 +32,6 @@ void replaceCommand(char *line, const char command[], const char replacement[]) 
 
 	char *temp;
 	temp = malloc((MAXLEN+1) * sizeof(char));
-	strcpy(temp, "");
 	if (temp == NULL) {
 		fputs("Error: Could not allocate memory for operation\n", stderr);
 		return;
@@ -42,9 +41,9 @@ void replaceCommand(char *line, const char command[], const char replacement[]) 
 	if (!strncmp(line, command, n)) {
 		for (int i = n; i < strlen(line); i++) {
 			/* remove beginning spaces */
-			if (j == 0 && isspace(line[i]))
+			if ( !j && isspace(*(line+i)) )
 				continue;
-			*(temp+j) = line[i];
+			*(temp+j) = *(line+i);
 			j++;
 		}
 		*(temp+j) = '\0';

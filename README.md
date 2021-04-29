@@ -24,8 +24,10 @@ You can also use the options `-s 3` to open at the third slide, `-s -2` to open 
 
 The keys are also quite simple
 
-	l, space, enter ....... go next slide
 	h, backspace .......... go previous slide
+	l, space, enter ....... go next slide
+	H ..................... go previous slide in group
+	L ..................... go next slide in group
 	g ..................... go first slide
 	G ..................... go last slide
 	q, Q .................. quit
@@ -61,8 +63,10 @@ You can break one slide into multiple parts by using `--`:
 	--
 	try it!
 
+When utilizing `--`, slides become part of the same "group", whereas `--newpage` creates a new slide group entirely.
+
 ## To-do
 
-- [x] Add utf8 support.
+- [x] Add utf8 support (`1.1`).
 - [ ] Formatting options for title information (such as `title - author`).
-- [ ] Command H and L to skip splitted slides.
+- [x] Command H and L to skip splitted slides (`1.2`).
