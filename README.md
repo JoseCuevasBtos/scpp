@@ -24,13 +24,13 @@ You can also use the options `-s 3` to open at the third slide, `-s -2` to open 
 
 The keys are also quite simple
 
-	h, backspace .......... go previous slide
-	l, space, enter ....... go next slide
-	H ..................... go previous slide in group
-	L ..................... go next slide in group
-	g ..................... go first slide
-	G ..................... go last slide
-	q, Q .................. quit
+	h, p, backspace ......... go previous slide
+	l, n, space, enter ...... go next slide
+	H ....................... go previous slide in group
+	L ....................... go next slide in group
+	g ....................... go first slide
+	G ....................... go last slide
+	q, Q .................... quit
 
 It also reads numbers like vim, so `2h` has the same effect as pressing `h` twice, and `2g` or `2G` goes to the second slide.
 
@@ -65,8 +65,13 @@ You can break one slide into multiple parts by using `--`:
 
 When utilizing `--`, slides become part of the same "group", whereas `--newpage` creates a new slide group entirely.
 
+## Recomendations
+
+Maybe if you dislike text presentations the program is still quite good for guitar tabs/chords.
+A sample is the `guitar-score.scpp` file included which is an online tab I found for "Todas las hojas son del viento".
+
 ## To-do
 
 - [x] Add utf8 support (`1.1`).
-- [ ] Formatting options for title information (such as `title - author`).
 - [x] Command H and L to skip splitted slides (`1.2`).
+- [ ] Formatting options for title information (such as `title - author`).

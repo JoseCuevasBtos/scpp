@@ -129,14 +129,13 @@ int main(int argc, char *argv[]) {
 		else if (i + 1 == argc)
 			total = readfile( pages, title, slidegrp, (!strcmp(argv[i], "-")) ? "/dev/stdin" : argv[i] );
 		else if (!strcmp(argv[i], "-s"))
-			slide = atoi(argv[++i]) - 1;
+			++i, slide = (atoi(argv[i]) > 0) ? atoi(argv[i]) - 1 : atoi(argv[i]);
 		else
 			usage();
 	}
 	/* check for slide overflow or negatives */
-	slide = (slide < 0) ? total + slide + 1 : slide;
-	slide = (slide < 0) ? 0 : slide;
-	slide = (slide > total) ? total : slide;
+	slide = (slide < 0) ? MAX(total + slide + 1, 0) : slide;
+	slide = MIN(slide, total);
 
 	setlocale(LC_ALL, ""); // allow utf8 characters
 	initscr();

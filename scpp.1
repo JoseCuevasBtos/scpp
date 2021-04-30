@@ -31,17 +31,18 @@ prints simple help information to stderr, then exits.
 .SH USAGE
 The program uses only the keyboard and has vim-like commands.
 .TP
-.BR h " | " backspace
+.BR h " | " p " | " backspace
 Go to previous slide
 .TP
-.BR l " | " space " | " enter
+.BR l " | " n " | " space " | " enter
 Go to next slide
 .TP
 .B H
 Go to previous slide group (see
 .I WRITING A PRESENTATION
 for info)
-.TP L
+.TP
+.B L
 Go to next slide group
 .TP
 .BR g
@@ -105,5 +106,7 @@ You can scape characters with \\\\, as \\* and \\_.
 .P
 It is important to know that the slide title and subtitle must use the first two lines of a slide.
 .P
-Finally you can split a slide into multiple parts of the same group with just \'\-\-\'
+Finally you can split a slide into multiple parts of the same
+.I group
+with just \'\-\-\'
 or create a new one entirely with \'\-\-newpage\', which also creates a new group.
